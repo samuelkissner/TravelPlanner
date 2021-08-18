@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TravelPlanner.Models
 {
-    interface ITripRepository
+    public interface ITripRepository
     {
         public Trip CreateTrip(Trip trip);
         public Trip GetTrip(Trip trip);

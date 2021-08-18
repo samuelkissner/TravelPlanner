@@ -9,22 +9,26 @@ using TravelPlanner.Models;
 
 namespace TravelPlanner.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ITripRepository _tripRepository;
+        public HomeController(ILogger<HomeController> logger, ITripRepository tripRepository)
         {
             _logger = logger;
+            _tripRepository = tripRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
+
+            return View(_tripRepository);
         }
 
         public IActionResult Privacy()
         {
+   
             return View();
         }
 

@@ -7,6 +7,7 @@ namespace TravelPlanner.Models
 {
     public class Trip
     {
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime DepartureDate { get; set; }
