@@ -13,5 +13,6 @@ namespace TravelPlanner.Models
         public DateTime DepartureDate { get; set; }
         public DateTime ReturnDate { get; set; }
         public double Budget { get; set; }
+        public string PhotoPath { get; set; }
     }
 }

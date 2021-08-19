@@ -22,8 +22,8 @@ namespace TravelPlanner.Controllers
 
         public IActionResult Index()
         {
-
-            return View(_tripRepository);
+            IEnumerable<Trip> model = this._tripRepository.GetAllTrips();
+            return View(model);
         }
 
         public IActionResult Privacy()

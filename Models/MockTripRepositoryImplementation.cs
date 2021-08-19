@@ -7,7 +7,7 @@ namespace TravelPlanner.Models
 {
     public class MockTripRepositoryImplementation : ITripRepository
     {
-        public List<Trip> _tripList;
+        private List<Trip> _tripList;
 
         public MockTripRepositoryImplementation()
         {
@@ -19,26 +19,29 @@ namespace TravelPlanner.Models
             };
         }
 
-        public Trip CreateTrip(Trip trip)
+        public Trip AddTrip(Trip trip)
         {
             throw new NotImplementedException();
         }
 
-        public Trip DeleteTrip(Trip trip)
+        public Trip DeleteTrip(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Trip EditTrip(Trip trip)
+        public IEnumerable<Trip> GetAllTrips()
+        {
+            return this._tripList;
+        }
+
+        public Trip GetTrip(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Trip GetTrip(Trip trip)
+        public Trip UpdateTrip(Trip tripChanges)
         {
             throw new NotImplementedException();
         }
-
-        
     }
 }
