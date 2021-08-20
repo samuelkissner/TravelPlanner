@@ -36,7 +36,7 @@ namespace TravelPlanner.Models
 
         public Trip GetTrip(int id)
         {
-            throw new NotImplementedException();
+            return this._tripList[id];
         }
 
         public Trip UpdateTrip(Trip tripChanges)

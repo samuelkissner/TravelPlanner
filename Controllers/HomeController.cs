@@ -37,5 +37,13 @@ namespace TravelPlanner.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+        public IActionResult TripDetails(int id)
+        {
+
+            var model = this._tripRepository.GetTrip(id);
+            return View(model);
+        }
     }
 }
