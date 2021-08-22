@@ -21,12 +21,10 @@
                 <img class="card-img text-center" src="~/images/no-image.png">
             </div>
 
-            <div class="card-footer">
-                <div class="btn-block text-center">
-                    <div class="btn btn-primary"> <a href="~/Home/TripDetails/@trip.ID">view</a></div>
-                    <div class="btn btn-primary">edit</div>
-                    <div class="btn btn-danger">delete</div>
-                </div>
+            <div class="card-footer text-center">
+                <a asp-controller="Home" asp-action="TripDetails" asp-route-id=@trip.ID class="btn btn-primary">view</a>
+                <a class="btn btn-primary">edit</a>
+                <a class="btn btn-danger">delete</a>
             </div>
 
         </div>  

@@ -41,7 +41,6 @@ namespace TravelPlanner.Controllers
 
         public IActionResult TripDetails(int id)
         {
-
             var model = this._tripRepository.GetTrip(id);
             return View(model);
         }
