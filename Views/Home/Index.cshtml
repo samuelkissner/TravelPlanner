@@ -22,9 +22,9 @@
             </div>
 
             <div class="card-footer text-center">
-                <a asp-controller="Home" asp-action="TripDetails" asp-route-id=@trip.ID class="btn btn-primary">view</a>
-                <a class="btn btn-primary">edit</a>
-                <a class="btn btn-danger">delete</a>
+                <a asp-controller="Home" asp-action="TripDetails" asp-route-id=@trip.ID class="btn btn-primary">View</a>
+                <a asp-controller="Home" asp-action="EditTrip" asp-route-id=@trip.ID class="btn btn-primary">Edit</a>
+                <a asp-controller="Home" asp-action="DeleteTrip" asp-route-id=@trip.ID class="btn btn-danger">Delete</a>
             </div>
 
         </div>  

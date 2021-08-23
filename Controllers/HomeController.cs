@@ -39,10 +39,22 @@ namespace TravelPlanner.Controllers
         }
 
 
-        public IActionResult TripDetails(int id)
+        public IActionResult TripDetails(int? id)
         {
-            var model = this._tripRepository.GetTrip(id);
+            var model = this._tripRepository.GetTrip(id ?? 0);
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult EditTrip(int id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult EditTrip()
+        {
+            return View();
         }
     }
 }

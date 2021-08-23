@@ -6,55 +6,23 @@
 
 <h1>Trip Details</h1>
 
-<div>
-    <h4>Trip</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DepartureDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DepartureDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReturnDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReturnDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Budget)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Budget)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhotoPath)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhotoPath)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+<div class="card">
+    <div class="card-header text-center">@Model.Name</div>
+    
+    <div class="card-body text-center">
+        <img src="~/images/no-image.png" />
+    </div>
+
+    <div class="card-body text-center">
+        <h4>@Model.Description</h4>
+        <h4>Departure Date: @Model.DepartureDate</h4>
+        <h4>Return Date: @Model.ReturnDate</h4>
+        <h4>Budget: @Model.Budget</h4>
+    </div>
+
+    <div class="card-footer text-center">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back</a>
+        <a asp-controller="Home" asp-action="EditTrip" asp-route-id=@Model.ID class="btn btn-primary">Edit</a>
+        <a asp-controller="Home" asp-action="DeleteTrip" asp-route-id=@Model.ID class="btn btn-danger">Delete</a>
+    </div>
 </div>
