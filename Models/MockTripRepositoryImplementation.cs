@@ -21,7 +21,10 @@ namespace TravelPlanner.Models
 
         public Trip AddTrip(Trip trip)
         {
-            throw new NotImplementedException();
+            int id = _tripList.Max(e => e.ID) + 1;
+            trip.ID = id;
+            this._tripList.Add(trip);
+            return trip;
         }
 
         public Trip DeleteTrip(int id)

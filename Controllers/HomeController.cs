@@ -44,6 +44,18 @@ namespace TravelPlanner.Controllers
             var model = this._tripRepository.GetTrip(id ?? 0);
             return View(model);
         }
+        [HttpGet]
+        public IActionResult CreateTrip()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public RedirectToActionResult CreateTrip(Trip trip)
+        {
+            this._tripRepository.AddTrip(trip);
+            return RedirectToAction("TripDetails", new {id=trip.ID });
+        }
 
         [HttpGet]
         public IActionResult EditTrip(int id)
