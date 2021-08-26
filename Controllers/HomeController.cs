@@ -51,10 +51,15 @@ namespace TravelPlanner.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult CreateTrip(Trip trip)
+        public IActionResult CreateTrip(Trip trip)
         {
-            this._tripRepository.AddTrip(trip);
-            return RedirectToAction("TripDetails", new {id=trip.ID });
+            if (ModelState.IsValid)
+            {
+                this._tripRepository.AddTrip(trip);
+                return RedirectToAction("TripDetails", new { id = trip.ID });
+            }
+
+            return View();
         }
 
         [HttpGet]
@@ -67,6 +72,13 @@ namespace TravelPlanner.Controllers
         public IActionResult EditTrip()
         {
             return View();
+        }
+
+        public IActionResult DeleteTrip(int? id)
+        {
+           
+            this._tripRepository.DeleteTrip(id ?? 0);
+            return RedirectToAction("index");
         }
     }
 }

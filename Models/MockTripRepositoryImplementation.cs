@@ -21,7 +21,7 @@ namespace TravelPlanner.Models
 
         public Trip AddTrip(Trip trip)
         {
-            int id = _tripList.Max(e => e.ID) + 1;
+            int id = _tripList.Max(t => t.ID) + 1;
             trip.ID = id;
             this._tripList.Add(trip);
             return trip;
@@ -29,7 +29,10 @@ namespace TravelPlanner.Models
 
         public Trip DeleteTrip(int id)
         {
-            throw new NotImplementedException();
+            Trip trip = GetTrip(id);
+            if(trip != null)
+                this._tripList.Remove(trip);
+            return trip;
         }
 
         public IEnumerable<Trip> GetAllTrips()
@@ -39,7 +42,7 @@ namespace TravelPlanner.Models
 
         public Trip GetTrip(int id)
         {
-            return this._tripList[id];
+            return this._tripList.FirstOrDefault(t => t.ID == id); 
         }
 
         public Trip UpdateTrip(Trip tripChanges)
