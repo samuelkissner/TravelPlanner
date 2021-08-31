@@ -7,10 +7,10 @@ namespace TravelPlanner.Models
 {
     public interface ITripRepository
     {
-        public Trip AddTrip(Trip trip);
-        public Trip GetTrip(int id);
-        public IEnumerable<Trip> GetAllTrips();
-        public Trip UpdateTrip(Trip tripChanges);
-        public Trip DeleteTrip(int id);
+        Trip AddTrip(Trip trip);
+        Trip GetTrip(int id);
+        IEnumerable<Trip> GetAllTrips();
+        Trip UpdateTrip(Trip tripChanges);
+        Trip DeleteTrip(int id);
     }
 }
