@@ -26,9 +26,9 @@ namespace TravelPlanner
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContextPool<AppDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("TravelPlannerDBConection")));
+                options => options.UseSqlServer(Configuration.GetConnectionString("TravelPlannerDBConnection")));
             services.AddControllersWithViews();
-            services.AddSingleton<ITripRepository, SQLTripRepositoryImplementation>();
+            services.AddScoped<ITripRepository, SQLTripRepositoryImplementation>();
 
         }
 
