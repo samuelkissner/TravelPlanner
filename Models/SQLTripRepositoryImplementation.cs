@@ -45,7 +45,6 @@ namespace TravelPlanner.Models
 
         public Trip UpdateTrip(Trip tripChanges) 
         {
-
             var trip = this.context.Trips.Attach(tripChanges);
             trip.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             this.context.SaveChanges();
