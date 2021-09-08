@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TravelPlanner.Models;
+using TravelPlanner.ViewModels;
 
 namespace TravelPlanner.Controllers
 {
@@ -14,10 +17,12 @@ namespace TravelPlanner.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ITripRepository _tripRepository;
-        public HomeController(ILogger<HomeController> logger, ITripRepository tripRepository)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public HomeController(ILogger<HomeController> logger, ITripRepository tripRepository, IWebHostEnvironment hostingEnvironment)
         {
             _logger = logger;
             _tripRepository = tripRepository;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public IActionResult Index()
@@ -28,7 +33,7 @@ namespace TravelPlanner.Controllers
 
         public IActionResult Privacy()
         {
-   
+
             return View();
         }
 
@@ -51,10 +56,23 @@ namespace TravelPlanner.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTrip(Trip trip)
+        public IActionResult CreateTrip(CreateTripViewModel tripDetails)
         {
+
+
             if (ModelState.IsValid)
             {
+                string uniquePhotopath = ProcessUploadedFile(tripDetails);
+                Trip trip = new Trip()
+                {
+                    Name = tripDetails.Name,
+                    Description = tripDetails.Description,
+                    DepartureDate = tripDetails.DepartureDate,
+                    ReturnDate = tripDetails.ReturnDate,
+                    Budget = tripDetails.Budget,
+                    PhotoPath = uniquePhotopath
+                };
+
                 this._tripRepository.AddTrip(trip);
                 return RedirectToAction("TripDetails", new { id = trip.ID });
             }
@@ -66,7 +84,7 @@ namespace TravelPlanner.Controllers
         public IActionResult EditTrip(int? id)
         {
             var model = this._tripRepository.GetTrip(id ?? 1);
-            return View(model) ;
+            return View(model);
         }
 
         [HttpPost]
@@ -75,16 +93,33 @@ namespace TravelPlanner.Controllers
             if (ModelState.IsValid)
             {
                 this._tripRepository.UpdateTrip(trip);
-                return RedirectToAction("TripDetails", new {id = trip.ID });
+                return RedirectToAction("TripDetails", new { id = trip.ID });
             }
             return View();
         }
 
         public IActionResult DeleteTrip(int? id)
         {
-           
+
             this._tripRepository.DeleteTrip(id ?? 0);
             return RedirectToAction("index");
+        }
+
+        private string ProcessUploadedFile(CreateTripViewModel model)
+        {
+            string uniqueFileName = null;
+            if (model.Photo != null)
+            {
+                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.Photo.CopyTo(fileStream);
+
+                }
+            }
+            return uniqueFileName;
         }
     }
 }

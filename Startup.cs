@@ -29,6 +29,7 @@ namespace TravelPlanner
                 options => options.UseSqlServer(Configuration.GetConnectionString("TravelPlannerDBConnection")));
             services.AddControllersWithViews();
             services.AddScoped<ITripRepository, SQLTripRepositoryImplementation>();
+            
 
         }
 
