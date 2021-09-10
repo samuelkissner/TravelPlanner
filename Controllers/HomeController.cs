@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TravelPlanner.Models;
@@ -81,17 +82,52 @@ namespace TravelPlanner.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditTrip(int? id)
+        public IActionResult EditTrip(int id)
         {
-            var model = this._tripRepository.GetTrip(id ?? 1);
-            return View(model);
+
+
+            Trip trip = this._tripRepository.GetTrip(id);
+            EditTripViewModel editTripViewModel = new EditTripViewModel
+            {
+                ID = trip.ID,
+                Name= trip.Name,
+                Description = trip.Description,
+                DepartureDate = trip.DepartureDate,
+                ReturnDate = trip.ReturnDate,
+                Budget = trip.Budget,
+                ExistingPhotoPath = trip.PhotoPath
+            };
+
+            return View(editTripViewModel);
         }
 
         [HttpPost]
-        public IActionResult EditTrip(Trip trip)
+        public IActionResult EditTrip(EditTripViewModel tripDetails)
         {
             if (ModelState.IsValid)
             {
+                Trip trip = this._tripRepository.GetTrip(tripDetails.ID);
+                
+
+                trip.Name = tripDetails.Name;
+                trip.Description = tripDetails.Description;
+                trip.DepartureDate = tripDetails.DepartureDate;
+                trip.ReturnDate = tripDetails.ReturnDate;
+                trip.Budget = tripDetails.Budget;
+
+                if(tripDetails.Photo != null)
+                {
+                   if(tripDetails.ExistingPhotoPath != null)
+                    {
+                        string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images", tripDetails.ExistingPhotoPath);
+                        System.IO.File.Delete(filePath);
+                    }
+
+                   trip.PhotoPath = ProcessUploadedFile(tripDetails);
+                }
+                
+                
+
                 this._tripRepository.UpdateTrip(trip);
                 return RedirectToAction("TripDetails", new { id = trip.ID });
             }
