@@ -7,7 +7,7 @@
 
 <h1>Edit Trip</h1>
 
-<form asp-controller="Home" asp-action="EditTrip" method="post" class="mt-3">
+<form enctype="multipart/form-data" Home" asp-action="EditTrip" method="post" class="mt-3">
 
     <input hidden asp-for=@Model.ID />
     <input hidden asp-for=@Model.ExistingPhotoPath />

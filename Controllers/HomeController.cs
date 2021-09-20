@@ -87,7 +87,7 @@ namespace TravelPlanner.Controllers
 
 
             Trip trip = this._tripRepository.GetTrip(id);
-            EditTripViewModel editTripViewModel = new EditTripViewModel
+            EditTripViewModel editTripViewModel = new EditTripViewModel()
             {
                 ID = trip.ID,
                 Name= trip.Name,
@@ -108,7 +108,6 @@ namespace TravelPlanner.Controllers
             {
                 Trip trip = this._tripRepository.GetTrip(tripDetails.ID);
                 
-
                 trip.Name = tripDetails.Name;
                 trip.Description = tripDetails.Description;
                 trip.DepartureDate = tripDetails.DepartureDate;
@@ -125,8 +124,6 @@ namespace TravelPlanner.Controllers
 
                    trip.PhotoPath = ProcessUploadedFile(tripDetails);
                 }
-                
-                
 
                 this._tripRepository.UpdateTrip(trip);
                 return RedirectToAction("TripDetails", new { id = trip.ID });
